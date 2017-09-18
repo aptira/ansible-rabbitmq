@@ -19,6 +19,7 @@ rabbitmq_mem_relative: 1.0
 rabbitmq_heartbeat: 10
 rabbitmq_user: rabbitmq
 rabbitmq_group: rabbitmq
+rabbitmq_pacemaker_support: false
 
 # SSL
 rabbitmq_cacert_file: etc/rabbitmq/ssl/cacert.pem

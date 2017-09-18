@@ -50,3 +50,8 @@
 
 - include: users.yml
   tags: [ rabbitmq, rabbitmq-users ]
+
+- include: pacemaker.yml
+  when: rabbitmq_pacemaker_support is defined and
+        rabbitmq_pacemaker_support == true
+  tags: [ rabbitmq, rabbitmq-pacemaker ]
