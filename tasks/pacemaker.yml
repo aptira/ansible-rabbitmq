@@ -1,17 +1,14 @@
 ---
 
 - name: create rabbitmq in pacemaker
-  pcs_resource: command=create resource_id=rabbitmq type=ocf:rabbitmq:rabbitmq-server-ha master=true
+  pcs_resource: command=create resource_id=rabbitmq type=ocf:heartbeat:rabbitmq-cluster clone=true
   args:
+    options:
+      set_policy: "ha-all ^(?!amq\\.).* {\"ha-mode\":\"all\"}"
     operations:
       - action: monitor
         options:
           interval: 10
-          timeout: 40
-      - action: monitor
-        options:
-          interval: 20
-          role: Master
           timeout: 40
       - action: start
         options:
@@ -22,7 +19,5 @@
           interval: 0s
           timeout: 200s
     metas:
-      migration-threshold: 10
-      failure-timeout: "30s"
-      resource-stickiness: 100
+      notify: true
   run_once: true
