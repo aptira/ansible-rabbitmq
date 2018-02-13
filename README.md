@@ -162,3 +162,7 @@ Apache
 
 ## Author Information
 This role was created in 2016 by Gaëtan Trellu (goldyfruit).
+
+
+## Re-create cluster
+Remove /etc/rabbitmq/clustered on all controllers
