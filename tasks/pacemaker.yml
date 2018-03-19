@@ -1,7 +1,11 @@
 ---
 
 - name: create rabbitmq in pacemaker
-  pcs_resource: command=create resource_id=rabbitmq type=ocf:rabbitmq:rabbitmq-server-ha master=true
+  pcs_resource:
+    command: create
+    resource_id: rabbitmq
+    type: ocf:rabbitmq:rabbitmq-server-ha
+    master: true
     operations:
       - action: monitor
         options:
