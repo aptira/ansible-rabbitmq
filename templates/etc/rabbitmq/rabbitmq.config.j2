@@ -1,7 +1,7 @@
 [
   {rabbit, [
 {% if rabbitmq_clustering %}
-    {cluster_nodes, {[ {% for node in rabbitmq_cluster_nodes %}"rabbit@{{ node }}"{{ ", " if not loop.last else "" }}{% endfor %} ], {{ rabbitmq_cluster_node_type }} }},
+    {cluster_nodes, {[ {% for node in rabbitmq_cluster_nodes %}'rabbit@{{ node }}'{{ ", " if not loop.last else "" }}{% endfor %} ], {{ rabbitmq_cluster_node_type }} }},
     {cluster_partition_handling, {{ rabbitmq_cluster_partition_handling }} },
 {% endif %}
 {% if rabbitmq_bind_address and not rabbitmq_ssl %}
