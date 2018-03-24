@@ -10,4 +10,8 @@
     src=etc/systemd/system/rabbitmq-server.service.d/limits.conf
     dest=/etc/systemd/system/rabbitmq-server.service.d/limits.conf
     mode=0644
-  notify: systemctl reload
+  register: service_limit
+
+- name: systemctl reload
+  command: systemctl --system daemon-reload
+  when: service_limit.changed
