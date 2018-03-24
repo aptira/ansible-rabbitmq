@@ -25,6 +25,12 @@
   when: rabbitmq_selinux is defined and
         rabbitmq_selinux
 
+- name: Starting RabbitMQ service
+  service:
+    name=rabbitmq-server
+    state=restarted
+  when: rabbitmq_config.changed or rabbitmq_env.changed
+  
 # clustered variable is exported and will be used as a condition
 #- name: Checking if a RabbitMQ cluster already exists
 #  stat:

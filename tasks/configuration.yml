@@ -34,7 +34,7 @@
     owner="{{ rabbitmq_user }}"
     group="{{ rabbitmq_group }}"
     mode=0644
-  notify: restart rabbitmq
+  register: rabbitmq_config
 
 - name: Generating environment variables for RabbitMQ
   template:
@@ -43,6 +43,6 @@
     owner="{{ rabbitmq_user }}"
     group="{{ rabbitmq_group }}"
     mode=0644
-  notify: restart rabbitmq
+  register: rabbitmq_env
   when: rabbitmq_conf_env is defined and
         rabbitmq_env_vars
