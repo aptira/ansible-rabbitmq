@@ -20,6 +20,9 @@ rabbitmq_heartbeat: 10
 rabbitmq_user: rabbitmq
 rabbitmq_group: rabbitmq
 rabbitmq_pacemaker_support: false
+rabbitmq_cluster_partition_handling: ignore
+rabbitmq_cluster_node_type: disc
+rabbitmq_cluster_nodes: []
 
 # PACKAGES REDHAT FAMILY DISTRIBUTIONS
 rabbitmq_rh_packages:

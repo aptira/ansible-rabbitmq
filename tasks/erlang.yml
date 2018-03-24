@@ -7,3 +7,10 @@
     owner="{{ rabbitmq_user }}"
     group="{{ rabbitmq_group }}"
     mode=0400
+  register: erlang_cookie
+  
+- name: delete database when cookie is changed
+  file:
+    dest: /var/lib/rabbitmq/mnesia
+    state: absent
+  when: erlang_cookie.changed and rabbitmq_reset_cluster

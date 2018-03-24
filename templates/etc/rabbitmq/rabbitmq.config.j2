@@ -1,5 +1,9 @@
 [
   {rabbit, [
+{% if rabbitmq_clustering %}
+    {cluster_nodes, {[ {{ (', ').join('"rabbit@'+node+'"' for node in rabbitmq_cluster_nodes) }} ], {{ rabbitmq_cluster_node_type }} },
+    {cluster_partition_handling, {{ rabbitmq_cluster_partition_handling }} },
+{% end %}
 {% if rabbitmq_bind_address and not rabbitmq_ssl %}
     {tcp_listeners, [{"{{ rabbitmq_bind_address }}", {{ rabbitmq_port }}}]},
 {% else %}

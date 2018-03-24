@@ -34,6 +34,7 @@
     owner="{{ rabbitmq_user }}"
     group="{{ rabbitmq_group }}"
     mode=0644
+  notify: restart rabbitmq
 
 - name: Generating environment variables for RabbitMQ
   template:
