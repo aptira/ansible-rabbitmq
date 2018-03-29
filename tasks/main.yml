@@ -15,11 +15,32 @@
 - include: limits.yml
   tags: [ rabbitmq, rabbitmq-limits ]
   
-- name: Starting RabbitMQ service
+- name: Starting RabbitMQ service on master
   service:
     name=rabbitmq-server
     state=restarted
-  when: rabbitmq_config.changed or rabbitmq_env.changed
+  when: inventory_hostname == rabbitmq_master_name and (rabbitmq_config.changed or rabbitmq_env.changed)
+  tags: [ rabbitmq, rabbitmq-config, rabbitmq-limits ]
+
+- name: Starting RabbitMQ service on others
+  service:
+    name=rabbitmq-server
+    state=restarted
+  when: inventory_hostname != rabbitmq_master_name and (rabbitmq_config.changed or rabbitmq_env.changed)
+  tags: [ rabbitmq, rabbitmq-config, rabbitmq-limits ]
+
+- name: make sure RabbitMQ service is running on master
+  service:
+    name=rabbitmq-server
+    state=started
+  when: inventory_hostname == rabbitmq_master_name
+  tags: [ rabbitmq, rabbitmq-config, rabbitmq-limits ]
+
+- name: make sure RabbitMQ service is running on others
+  service:
+    name=rabbitmq-server
+    state=started
+  when: inventory_hostname != rabbitmq_master_name
   tags: [ rabbitmq, rabbitmq-config, rabbitmq-limits ]
 
 - include: firewall.yml
