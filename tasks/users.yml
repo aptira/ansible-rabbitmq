@@ -14,9 +14,9 @@
   with_items: "{{ rabbitmq_users_list }}"
   run_once: true
 
-- name: Deleting the default guest RabbitMQ user
-  rabbitmq_user:
-    user=guest
-    vhost=/
-    state=absent
-  run_once: true
+#- name: Deleting the default guest RabbitMQ user
+#  rabbitmq_user:
+#    user=guest
+#    vhost=/
+#    state=absent
+#  run_once: true

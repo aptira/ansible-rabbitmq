@@ -1,5 +1,16 @@
 [
   {rabbit, [
+    {tcp_listen_options,
+         [binary,
+         {packet,        raw},
+         {reuseaddr,     true},
+{% if rabbitmq_tcp_backlog %}
+         {backlog,       {{rabbitmq_tcp_backlog}}},
+{% endif %}
+         {nodelay,       true},
+         {linger,        {true, 0}},
+         {exit_on_close, false}]
+    },
 {% if rabbitmq_clustering %}
     {cluster_nodes, {[ {% for node in rabbitmq_cluster_nodes %}'rabbit@{{ node }}'{{ ", " if not loop.last else "" }}{% endfor %} ], {{ rabbitmq_cluster_node_type }} }},
     {cluster_partition_handling, {{ rabbitmq_cluster_partition_handling }} },
@@ -27,6 +38,12 @@
     {vm_memory_high_watermark, {{ rabbitmq_vm_memory | default(0.4) }}},
     {vm_memory_high_watermark_paging_ratio, {{ rabbitmq_vm_memory_ratio | default(0.5) }}},
     {disk_free_limit, {mem_relative, {{ rabbitmq_mem_relative | default(1) }}}},
-    {heartbeat, {{ rabbitmq_heartbeat | default(580) }}}
+    {heartbeat, {{ rabbitmq_heartbeat | default(580) }}},
+    {default_user, <<"{{ rabbitmq_default_user }}">>},
+    {default_pass, <<"{{ rabbitmq_default_pass }}">>}
+  ]},
+  {kernel, [
+    {inet_dist_listen_max, {{ rabbitmq_inet_dist_listen_max | default(25672) }}},
+    {inet_dist_listen_min, {{ rabbitmq_inet_dist_listen_max | default(25672) }}}
   ]}
 ].
