@@ -21,3 +21,10 @@
     metas:
       notify: true
   run_once: true
+- name: update rabbitmq-clone in pacemaker
+  pcs_resource: command=update resource_id=rabbitmq-clone type=ocf:heartbeat:rabbitmq-cluster clone=true
+  args:
+    metas:
+      interleave: true
+      ordered: true
+  run_once: true
