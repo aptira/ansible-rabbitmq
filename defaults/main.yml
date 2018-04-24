@@ -16,7 +16,7 @@ rabbitmq_fd_limits: 4096
 rabbitmq_vm_memory: 0.4
 rabbitmq_vm_memory_ratio: 0.5
 rabbitmq_mem_relative: 1.0
-rabbitmq_heartbeat: 10
+rabbitmq_heartbeat: 60
 rabbitmq_tcp_backlog: 128
 rabbitmq_user: rabbitmq
 rabbitmq_group: rabbitmq
